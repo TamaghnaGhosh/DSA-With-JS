@@ -453,7 +453,6 @@
 //         pass += charStr.charAt(char);
 //     }
 //     console.log(pass)
-
 //  }
 //  generatorPassword()
 
