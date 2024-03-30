@@ -221,6 +221,7 @@
 // console.log(bidPrintFullName);
 // bidPrintFullName();
 
+// prototype methods
 // function Car(name,model){
 //   this.name = name;
 //   this.model = model;
