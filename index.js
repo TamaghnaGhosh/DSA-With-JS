@@ -463,7 +463,6 @@ const find = (str) => {
     strToArr.forEach((item, i) => {
       strToRes.push(item.replace(item[0], item[0].toUpperCase()));
     });
-    
     strToRes.unshift("#");
     let returnArrToStr = strToRes.join("");
     return returnArrToStr;
