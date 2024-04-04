@@ -467,6 +467,4 @@ const find = (str) => {
     let returnArrToStr = strToRes.join("");
     return returnArrToStr;
   };
-  
-  console.log(find("My name is tamaghna ghosh"));
-  //o/p- #MyNameIsTamaghnaGhosh
+  console.log(find("My name is tamaghna ghosh")); //o/p- #MyNameIsTamaghnaGhosh
