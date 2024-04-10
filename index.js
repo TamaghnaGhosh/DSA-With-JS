@@ -458,11 +458,8 @@
 //  generatorPassword()
 
 const find = (str) => {
-
-    let strToArr = str.split(" ");
-  
+    let strToArr = str.split(" ");  
     let strToRes = [];
-  
     strToArr.forEach((item, i) => {
       strToRes.push(item.replace(item[0], item[0].toUpperCase()));
     });
