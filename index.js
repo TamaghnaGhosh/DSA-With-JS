@@ -457,7 +457,7 @@
 //  }
 //  generatorPassword()
 
-const findWord = (str) => {
+const find = (str) => {
 
     let strToArr = str.split(" ");
   
@@ -472,5 +472,5 @@ const findWord = (str) => {
     return returnArrToStr;
   };
   
-  console.log(findWord("My name is tamaghna ghosh"));
+  console.log(find("My name is tamaghna ghosh"));
   //o/p- #MyNameIsTamaghnaGhosh
