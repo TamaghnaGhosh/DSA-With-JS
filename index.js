@@ -456,7 +456,7 @@
 //  }
 //  generatorPassword()
 
-const findLongestWord = (str) => {
+const findWord = (str) => {
 
     let strToArr = str.split(" ");
   
@@ -471,5 +471,5 @@ const findLongestWord = (str) => {
     return returnArrToStr;
   };
   
-  console.log(findLongestWord("My name is tamaghna ghosh"));
+  console.log(findWord("My name is tamaghna ghosh"));
   //o/p- #MyNameIsTamaghnaGhosh
