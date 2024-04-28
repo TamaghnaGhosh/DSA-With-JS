@@ -457,6 +457,7 @@
 //  generatorPassword()
 
 const findWord = (str) => {
+    
     let strToArr = str.split(" ");
   
     let strToRes = [];
