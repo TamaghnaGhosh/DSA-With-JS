@@ -468,3 +468,8 @@ console.log(fibonacci(15)); // Output: 610
 //     return returnArrToStr;
 //   };
 //   console.log(find("My name is tamaghna ghosh")); //o/p- #MyNameIsTamaghnaGhosh
+
+
+let a = 10;
+setTimeout(()=>{ a=20 }, 100);
+console.log(a)
