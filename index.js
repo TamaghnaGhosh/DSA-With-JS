@@ -334,26 +334,26 @@
 // console.log(fibonacci(5));
 // console.log(fibonacci(10));
 
-function fibonacci(n) {
-  // Create an array to store calculated Fibonacci numbers
-  const fibArray = [0, 1];
+// function fibonacci(n) {
+//   // Create an array to store calculated Fibonacci numbers
+//   const fibArray = [0, 1];
 
-  // Base cases
-  // fibArray[0] = 0;
-  // fibArray[1] = 1;
+//   // Base cases
+//   // fibArray[0] = 0;
+//   // fibArray[1] = 1;
 
-  // Calculate Fibonacci numbers using dynamic programming
-  for (let i = 2; i <= n; i++) {
-    fibArray[i] = fibArray[i - 1] + fibArray[i - 2];
-  }
+//   // Calculate Fibonacci numbers using dynamic programming
+//   for (let i = 2; i <= n; i++) {
+//     fibArray[i] = fibArray[i - 1] + fibArray[i - 2];
+//   }
 
-  // Return the nth Fibonacci number
-  return fibArray[n];
-}
+//   // Return the nth Fibonacci number
+//   return fibArray[n];
+// }
 
-// Example usage
-console.log(fibonacci(10)); // Output: 55
-console.log(fibonacci(15)); // Output: 610
+// // Example usage
+// console.log(fibonacci(10)); // Output: 55
+// console.log(fibonacci(15)); // Output: 610
 
 // const array = [1, 2, 3, 4, 1, 2, 3, 5];
 
@@ -470,6 +470,12 @@ console.log(fibonacci(15)); // Output: 610
 //   console.log(find("My name is tamaghna ghosh")); //o/p- #MyNameIsTamaghnaGhosh
 
 
-let a = 10;
-setTimeout(()=>{ a=20 }, 100);
-console.log(a)
+function a(){
+  console.log(x);
+  let x = 10;
+}
+a();
+
+// let a = 10;
+// setTimeout(()=>{ a=20 }, 100);
+// console.log(a)
