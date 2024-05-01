@@ -469,13 +469,33 @@
 //   };
 //   console.log(find("My name is tamaghna ghosh")); //o/p- #MyNameIsTamaghnaGhosh
 
-
-function a(){
-  console.log(x);
-  let x = 10;
-}
-a();
+// function a(){
+//   console.log(x);
+//   let x = 10;
+// }
+// a();
 
 // let a = 10;
 // setTimeout(()=>{ a=20 }, 100);
 // console.log(a)
+
+// function FibbonaciSeries(n) {
+//   if (n <= 1) {
+//     return n;
+//   } else {
+//     return FibbonaciSeries(n - 1) + FibbonaciSeries(n - 2);
+//   }
+// }
+// const fib = FibbonaciSeries(prompt());
+// console.log(fib);
+
+function Fact(n) {
+  let result = 1;
+  for (let i = 1; i <= n; i++) {
+    result = result * i;
+  }
+  return result;
+}
+
+const fa = Fact(5);
+console.log(fa);
