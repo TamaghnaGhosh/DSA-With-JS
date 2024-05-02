@@ -489,13 +489,22 @@
 // const fib = FibbonaciSeries(prompt());
 // console.log(fib);
 
-function Fact(n) {
-  let result = 1;
-  for (let i = 1; i <= n; i++) {
-    result = result * i;
-  }
-  return result;
-}
+const array1 = [
+  { id: 1, name: "Karthik", age: 20 },
+  { id: 2, name: "gokul", age: 21 },
+  { id: 3, name: "Rahul", age: 22 },
+];
+const array2 = [
+  { id: 2, name: "gokul", age: 21 },
+  { id: 3, name: "Rahul", age: 22 },
+  { id: 4, name: "Vijay", age: 23 },
+];
 
-const fa = Fact(5);
-console.log(fa);
+
+const resultRemove = array1.filter(x => !array2.includes(x));
+const resultRemoveCopy = array1.filter(x => array2.indexOf(x) === -1)
+
+
+
+console.log("🚀 ~ result:", JSON.stringify(resultRemove) === JSON.stringify(resultRemoveCopy))
+console.log("🚀 ~ result:", resultRemove)
