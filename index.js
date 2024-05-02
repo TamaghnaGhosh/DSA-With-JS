@@ -489,22 +489,472 @@
 // const fib = FibbonaciSeries(prompt());
 // console.log(fib);
 
-const array1 = [
-  { id: 1, name: "Karthik", age: 20 },
-  { id: 2, name: "gokul", age: 21 },
-  { id: 3, name: "Rahul", age: 22 },
-];
-const array2 = [
-  { id: 2, name: "gokul", age: 21 },
-  { id: 3, name: "Rahul", age: 22 },
-  { id: 4, name: "Vijay", age: 23 },
-];
+// const array1 = [
+//   { id: 1, name: "Karthik", age: 20 },
+//   { id: 2, name: "gokul", age: 21 },
+//   { id: 3, name: "Rahul", age: 22 },
+// ];
+// const array2 = [
+//   { id: 2, name: "gokul", age: 21 },
+//   { id: 3, name: "Rahul", age: 22 },
+//   { id: 4, name: "Vijay", age: 23 },
+// ];
 
 
-const resultRemove = array1.filter(x => !array2.includes(x));
-const resultRemoveCopy = array1.filter(x => array2.indexOf(x) === -1)
+// const resultRemove = array1.filter(x => !array2.includes(x));
+// const resultRemoveCopy = array1.filter(x => array2.indexOf(x) === -1)
+
+
+// console.log([...array1, ...array2])
+// console.log("🚀 ~ result:", JSON.stringify(resultRemove) === JSON.stringify(resultRemoveCopy))
+// console.log("🚀 ~ result:", resultRemove)
 
 
 
-console.log("🚀 ~ result:", JSON.stringify(resultRemove) === JSON.stringify(resultRemoveCopy))
-console.log("🚀 ~ result:", resultRemove)
+// ......................custom hooks......................
+import { useEffect, useState } from 'react'
+
+const usefetchFunction = (url) => {
+	const [data, setData] = useState(null)
+
+	useEffect(() => {
+		functionFetch()
+	}, [url])
+
+	async function functionFetch() {
+		try {
+			const returnData = await fetch(url)
+			const returnJson = await returnData.json()
+			setData(returnJson)
+		} catch (error) {
+			console.error(error)
+		}
+	}
+
+	return { data }
+}
+export default usefetchFunction;
+
+/////..........parent.jsx...................///
+
+const { data } = useFetch('https://dummyjson.com/carts')
+console.log(data)
+
+
+// ............. ./App.js ..............
+
+import "./App.css";
+import ChildComponent from "./ChildComponent";
+
+function App() {
+
+	return (
+		<>
+			<ChildComponent/>
+		</>
+	);
+}
+
+export default App;
+
+
+
+// .... ./ChildComponent.jsx.......
+
+import { useEffect, useState } from 'react'
+
+const getLocalItem = () => {
+	let list = localStorage.getItem('List')
+	console.log(list)
+
+	if (list) {
+		return JSON.parse(localStorage.getItem('List'))
+	} else {
+		return []
+	}
+}
+
+const ChildComponent = () => {
+	const [getInfo, setGetInfo] = useState(getLocalItem())
+	const [titleRef, setTitleRef] = useState('')
+	const [bodyRef, setBodyRef] = useState('')
+	const [editBtn, setEditBtn] = useState(false)
+	const [copyOfId, setCopyOfId] = useState(null)
+
+	useEffect(() => {
+		fetchFunction()
+	}, [])
+	
+	useEffect(() => {
+		localStorage.setItem('List', JSON.stringify(getInfo))
+	}, [getInfo])
+
+	const fetchFunction = async () => {
+		const data = await fetch('https://jsonplaceholder.typicode.com/posts')
+		const res = await data.json()
+		const resTendata = res.slice(0, 5)
+		setGetInfo(resTendata)
+	}
+	function handleSumbit() {
+		if (titleRef !== '' && bodyRef !== '') {
+			setGetInfo((pre) => [
+				...pre,
+				{
+					userId: getInfo.length,
+					id: getInfo.length + 1,
+					title: titleRef,
+					body: bodyRef
+				}
+			])
+		}
+		setBodyRef('')
+		setTitleRef('')
+	}
+
+	function handleRemove(elementID) {
+		setGetInfo((pre) => pre.filter((e) => e.id !== elementID))
+	}
+	function handleSelect(elementID) {
+		setCopyOfId(elementID)
+		let select = getInfo.find((e) => e.id === elementID)
+		setEditBtn(true)
+		setTitleRef(select.title)
+		setBodyRef(select.body)
+	}
+
+	function handleEdit() {
+		setGetInfo(
+			getInfo.map((element, index) => {
+				if (element.id === copyOfId) {
+					element.title = titleRef
+					element.body = bodyRef
+				}
+				return element
+			})
+		)
+		setTitleRef('')
+		setBodyRef('')
+		setCopyOfId(null)
+		setEditBtn(false)
+	}
+	return (
+		<>
+			<div>
+				<div className="">
+					{/* <form onSubmit={(e) => handleSumbit(e)}> */}
+					<input
+						type="text"
+						name="title"
+						value={titleRef}
+						onChange={(e) => setTitleRef(e.target.value)}
+					/>
+					<input
+						type="text"
+						name="body"
+						value={bodyRef}
+						onChange={(e) => setBodyRef(e.target.value)}
+					/>
+					{!editBtn ? (
+						<button onClick={(e) => handleSumbit(e)}>Submit</button>
+					) : (
+						<button onClick={(e) => handleEdit(e)}>Edit</button>
+					)}
+					{/* </form> */}
+				</div>
+			</div>
+			<div className="">
+				<table>
+					<tbody>
+						<tr>
+							<td>userId</td>
+							<td>id</td>
+							<td>title</td>
+							<td>body</td>
+							<td>Delete</td>
+						</tr>
+						{getInfo?.map((ele, i) => (
+							<tr key={ele.id}>
+								<td>{ele.userId}</td>
+								<td>{ele.id}</td>
+								<td>{ele.title}</td>
+								<td>{ele.body}</td>
+								<td>
+									<button
+										onClick={() => handleRemove(ele.id)}
+									>{`${ele.id} of this element`}</button>
+								</td>
+								<td>
+									<button
+										onClick={() => handleSelect(ele.id)}
+									>{`${ele.id} of this select`}</button>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+		</>
+	)
+}
+export default ChildComponent
+
+
+// ------------------Formik--------------------------------
+import { Formik, ErrorMessage, Field, Form } from 'formik';
+import * as Yup from "yup";
+
+                       <Formik
+                            initialValues={dataInital}
+                            validationSchema={dataValidation}
+                            onSubmit={dataValue}
+                        >
+                            {({
+                                formik,
+                                values,
+                                touched,
+                                errors
+                            }) => (
+                                <Form>
+                                    <div className="new-form-group-login">
+                                        <Field type="text" className='form-control'
+                                            placeholder="Enter Your Email"
+                                            id="email" name="email"
+                                            value={values.email} />
+                                        <i className="zmdi zmdi-email" />
+                                        <ErrorMessage name='email' component={TextError} />
+                                    </div>
+                                    <div className="new-form-group-login">
+                                        <Field type="password" className='form-control'
+                                            placeholder="password" id="password"
+                                            name="password" value={values.password} />
+                                        <i className="zmdi zmdi-lock" />
+                                        <ErrorMessage name='password' component={TextError} />
+                                    </div>
+                                    <div className="signin-btn">
+                                        <button type='submit' className="btn">Sign In</button>
+                                    </div>
+                                </Form>
+                            )}
+                        </Formik>
+
+                        const initialValues = {
+                         email: "",
+                         password: "",
+                         };
+                      
+                       const validationSchema = () => Yup.object({
+                       email: Yup.string()
+                       .required("Please enter Email")
+                       .email("Invalid email format!"),
+                       password: Yup.string()
+                       .required("Please Enter your password")
+                       .min(8, "password is too short - should be 8 chars minimum.")});
+
+
+                     const handleSubmitConsole = (values) => {
+                     console.log(values);
+                     };
+
+
+
+// ...............................Last pratice........................................................
+
+import React, { useState, useEffect } from "react";
+import { Table } from "react-bootstrap";
+
+const getLocalItem = () => {
+  let list = localStorage.getItem("List");
+  console.log(list);
+
+  if (list) {
+    return JSON.parse(localStorage.getItem("List"));
+  } else {
+    return [];
+  }
+};
+const Component = () => {
+  const [data, setData] = useState(getLocalItem("users"));
+  const [info, setInfo] = useState({
+    name: "",
+    phone: "",
+    username: "",
+    website: "",
+    email: "",
+  });
+  const [select, setSelect] = useState(false);
+  const [selectId, setSelectId] = useState(null);
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((data) => {
+        setData(data);
+      });
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("List", JSON.stringify(data));
+  }, [data]);
+
+  const handleSelect = (id) => {
+    // console.log(id);
+    setSelect(true);
+    setSelectId(id);
+    const select = data.find((ele) => ele.id === id);
+    console.log(select);
+    setInfo(select);
+  };
+
+  const handleRemove = (id) => {
+    setData((pre) => pre.filter((ele) => ele.id !== id));
+  };
+
+  const inputEvent = (e) => {
+    const { name, value } = e.target;
+    setInfo((pre) => {
+      console.log(pre);
+      return {
+        ...pre,
+        [name]: value,
+      };
+    });
+  };
+
+  const handleSubmit = (e) => {
+    if (
+      info.name === "" ||
+      info.phone === "" ||
+      info.username === "" ||
+      info.website === "" ||
+      info.email === ""
+    )
+      return;
+    setData((pre) => [...pre, { id: data?.length + 1, ...info }]);
+    setInfo((pre) => {
+      return {
+        ...pre,
+        name: "",
+        phone: "",
+        username: "",
+        website: "",
+        email: "",
+      };
+    });
+  };
+
+  const handleEdit = () => {
+    setData((pre) => pre?.map((ele) => (ele.id === selectId ? info : ele)));
+    setInfo((pre) => {
+      return {
+        ...pre,
+        name: "",
+        phone: "",
+        username: "",
+        website: "",
+        email: "",
+      };
+    });
+    setSelect(false);
+  };
+
+  return (
+    <>
+      <h1>Simple Table</h1>
+      <input
+        type="text"
+        placeholder="name"
+        name="name"
+        value={info.name}
+        onChange={inputEvent}
+      />
+      <br />
+      <input
+        type="text"
+        placeholder="phone"
+        name="phone"
+        value={info.phone}
+        onChange={inputEvent}
+      />
+      <br />
+      <input
+        type="text"
+        placeholder="username"
+        name="username"
+        value={info.username}
+        onChange={inputEvent}
+      />
+      <br />
+      <input
+        type="text"
+        placeholder="website"
+        name="website"
+        value={info.website}
+        onChange={inputEvent}
+      />
+      <br />
+      <input
+        type="text"
+        placeholder="email"
+        name="email"
+        value={info.email}
+        onChange={inputEvent}
+      />
+      <br />
+      {!select ? (
+        <button onClick={() => handleSubmit()}>Submit</button>
+      ) : (
+        <button onClick={() => handleEdit()}>Edit</button>
+      )}
+      <button onClick={() => setData([])}>clear</button>
+      <Table>
+        {/* <thead>Hello Component</thead> */}
+        <tbody>
+          <tr>
+            <td>id</td>
+            <td>name</td>
+            <td>phone</td>
+            <td>username</td>
+            <td>website</td>
+            <td>email</td>
+            <td>Delete</td>
+            <td>Select</td>
+          </tr>
+          {data?.map((info) => (
+            <tr key={info.id}>
+              <td>{info.id}</td>
+              <td>{info.name}</td>
+              <td>{info.phone}</td>
+              <td>{info.username}</td>
+              <td>{info.website}</td>
+              <td>{info.email}</td>
+              <td>
+                <button
+                  onClick={() => handleRemove(info.id)}
+                >{`${info.id} of this element`}</button>
+              </td>
+              <td>
+                <button
+                  onClick={() => handleSelect(info.id)}
+                >{`${info.id} of this select`}</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </>
+  );
+};
+
+export default Component;
+
+
+
+
+
+
+
+
+
+
+
+
