@@ -500,16 +500,12 @@
 //   { id: 4, name: "Vijay", age: 23 },
 // ];
 
-
 // const resultRemove = array1.filter(x => !array2.includes(x));
 // const resultRemoveCopy = array1.filter(x => array2.indexOf(x) === -1)
-
 
 // console.log([...array1, ...array2])
 // console.log("🚀 ~ result:", JSON.stringify(resultRemove) === JSON.stringify(resultRemoveCopy))
 // console.log("🚀 ~ result:", resultRemove)
-
-
 
 // ......................custom hooks......................
 // import { useEffect, useState } from 'react'
@@ -540,7 +536,6 @@
 // const { data } = useFetch('https://dummyjson.com/carts')
 // console.log(data)
 
-
 // // ............. ./App.js ..............
 
 // import "./App.css";
@@ -556,8 +551,6 @@
 // }
 
 // export default App;
-
-
 
 // .... ./ChildComponent.jsx.......
 
@@ -584,7 +577,7 @@
 // 	useEffect(() => {
 // 		fetchFunction()
 // 	}, [])
-	
+
 // 	useEffect(() => {
 // 		localStorage.setItem('List', JSON.stringify(getInfo))
 // 	}, [getInfo])
@@ -698,64 +691,68 @@
 // }
 // export default ChildComponent
 
-
 // ------------------Formik--------------------------------
-import { Formik, ErrorMessage, Field, Form } from 'formik';
-import * as Yup from "yup";
+// import { Formik, ErrorMessage, Field, Form } from "formik";
+// import * as Yup from "yup";
 
-                       <Formik
-                            initialValues={dataInital}
-                            validationSchema={dataValidation}
-                            onSubmit={dataValue}
-                        >
-                            {({
-                                formik,
-                                values,
-                                touched,
-                                errors
-                            }) => (
-                                <Form>
-                                    <div className="new-form-group-login">
-                                        <Field type="text" className='form-control'
-                                            placeholder="Enter Your Email"
-                                            id="email" name="email"
-                                            value={values.email} />
-                                        <i className="zmdi zmdi-email" />
-                                        <ErrorMessage name='email' component={TextError} />
-                                    </div>
-                                    <div className="new-form-group-login">
-                                        <Field type="password" className='form-control'
-                                            placeholder="password" id="password"
-                                            name="password" value={values.password} />
-                                        <i className="zmdi zmdi-lock" />
-                                        <ErrorMessage name='password' component={TextError} />
-                                    </div>
-                                    <div className="signin-btn">
-                                        <button type='submit' className="btn">Sign In</button>
-                                    </div>
-                                </Form>
-                            )}
-                        </Formik>
+// <Formik
+//   initialValues={dataInital}
+//   validationSchema={dataValidation}
+//   onSubmit={dataValue}
+// >
+//   {({ formik, values, touched, errors }) => (
+//     <Form>
+//       <div className="new-form-group-login">
+//         <Field
+//           type="text"
+//           className="form-control"
+//           placeholder="Enter Your Email"
+//           id="email"
+//           name="email"
+//           value={values.email}
+//         />
+//         <i className="zmdi zmdi-email" />
+//         <ErrorMessage name="email" component={TextError} />
+//       </div>
+//       <div className="new-form-group-login">
+//         <Field
+//           type="password"
+//           className="form-control"
+//           placeholder="password"
+//           id="password"
+//           name="password"
+//           value={values.password}
+//         />
+//         <i className="zmdi zmdi-lock" />
+//         <ErrorMessage name="password" component={TextError} />
+//       </div>
+//       <div className="signin-btn">
+//         <button type="submit" className="btn">
+//           Sign In
+//         </button>
+//       </div>
+//     </Form>
+//   )}
+// </Formik>;
 
-                        const initialValues = {
-                         email: "",
-                         password: "",
-                         };
-                      
-                       const validationSchema = () => Yup.object({
-                       email: Yup.string()
-                       .required("Please enter Email")
-                       .email("Invalid email format!"),
-                       password: Yup.string()
-                       .required("Please Enter your password")
-                       .min(8, "password is too short - should be 8 chars minimum.")});
+// const initialValues = {
+//   email: "",
+//   password: "",
+// };
 
+// const validationSchema = () =>
+//   Yup.object({
+//     email: Yup.string()
+//       .required("Please enter Email")
+//       .email("Invalid email format!"),
+//     password: Yup.string()
+//       .required("Please Enter your password")
+//       .min(8, "password is too short - should be 8 chars minimum."),
+//   });
 
-                     const handleSubmitConsole = (values) => {
-                     console.log(values);
-                     };
-
-
+// const handleSubmitConsole = (values) => {
+//   console.log(values);
+// };
 
 // ...............................Last pratice........................................................
 
@@ -947,19 +944,16 @@ import * as Yup from "yup";
 
 // export default Component;
 
-
 // Create Redux-toolkit App using Thunk:------>>>>
 
-'https://chat.openai.com/share/ce8dcbd4-7c57-4eee-871d-3472443c9843'
+// ("https://chat.openai.com/share/ce8dcbd4-7c57-4eee-871d-3472443c9843");
 
-
-
-
-
-
-
-
-
-
-
-
+const a = (a) => {
+  return function (b) {
+    return function (c) {
+      return a + b + c;
+    };
+  };
+};
+const urr = a(5)(6)(7);
+console.log("🚀 ~ urr:", urr);
