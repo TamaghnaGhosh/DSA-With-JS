@@ -946,14 +946,38 @@
 
 // Create Redux-toolkit App using Thunk:------>>>>
 
-// ("https://chat.openai.com/share/ce8dcbd4-7c57-4eee-871d-3472443c9843");
+ ("https://chat.openai.com/share/ce8dcbd4-7c57-4eee-871d-3472443c9843");
 
-const a = (a) => {
-  return function (b) {
-    return function (c) {
-      return a + b + c;
-    };
-  };
-};
-const urr = a(5)(6)(7);
-console.log("🚀 ~ urr:", urr);
+
+
+ //...........created a privateRouter with createBrowserRouter..........
+
+ import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
+
+ const PrivateRoute = ({ children }) => {
+   const isAuth = localStorage.getItem("token");
+   return isAuth ? children : <Navigate to="/login" />;
+ };
+ 
+ const router = createBrowserRouter([
+   {
+     path: "/",
+     element: <PrivateRoute />,
+     children: [
+       {
+         path: "home",
+         element: <h1>Home</h1>,
+       },
+       {
+         path: "products",
+         element: <h1>Products</h1>,
+       },
+     ],
+   },
+   {
+     path: "/login",
+     element: <h1>Login</h1>,
+   },
+ ]);
+ 
+ export default router;
